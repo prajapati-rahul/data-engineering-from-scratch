@@ -1,4 +1,6 @@
-# Functions
+from doctest import Example
+
+
 amount = 1000
 tax = amount * 0.18
 print(amount + tax)
@@ -177,3 +179,88 @@ student = {
 student_info = {key: value for key, value in student.items() if key in ["name", "marks"]}
 
 print(student_info)  # {'name': 'Rahul', 'marks': 85}
+
+# Functions for Data Engineering
+
+def add(a, b):
+    return a + b
+
+# Parameters vs Arguments
+def greet(name):       # name = parameter
+    print("Hello", name)
+
+greet("Rahul")         # "Rahul" = argument
+
+# Multiple parameters
+def calculate_total(price, tax):
+    return price + price * tax
+
+result = calculate_total(1000, 0.18)
+print(result)
+
+# Default Arguments
+def greet(name, greeting="Hello"):
+    print(greeting, name)
+
+greet("Rahul")  # Output: Hello Rahul
+greet("Rahul", "Hi")  # Output: Hi Rahul
+
+
+#example of a function with a default argument that is useful in data engineering:
+def read_data(file_path, encoding="utf-8"):
+    print(f"Reading {file_path} using {encoding}")
+
+# Keyword Arguments
+#instead of passing arguments in order, you can specify them by name:
+def employee(name, age, salary):
+    print(name, age, salary)
+
+employee("Rahul", 21, 50000)
+
+#you can also call the function using keyword arguments:
+employee(
+    name="Rahul",
+    age=21,
+    salary=50000
+)
+#this is more readable and allows you to pass arguments in any order.
+
+#args
+#suppose you want to create a function that can accept any number of arguments. You can use *args for this:
+def calculate_sum(*numbers):
+    total = 0
+
+    for number in numbers:
+        total += number
+
+    return total
+
+print(calculate_sum(10, 20))  # 30
+print(calculate_sum(10, 20, 30, 40))  #100
+# *args collects arguments into a tuple.
+
+
+# **kwargs
+# kwargs is used for multiple keyword arguments.
+def show_details(**details):
+    print(details)
+
+show_details(
+    name="Rahul",
+    age=21,
+    city="Ghaziabad"
+)
+
+# Remember this:
+
+# Syntax	    Stores	            Example
+# *args	        tuple	            (10, 20, 30)
+# **kwargs	    dictionary	        {"name": "Rahul"}
+
+
+# Lambda Functions
+square = lambda x: x * x
+print(square(5))  # 25
+
+# Lambda functions are useful for short, simple operations.
+# They are often used with functions like map(), filter(), and sorted().
