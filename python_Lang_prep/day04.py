@@ -159,7 +159,7 @@ print(filtered_prices)  #output: [ 500 1000]
 #another example of boolean filtering
 sales = np.array([1000, 5000, 2000, 8000, 3000])
 high_sales = sales[sales > 3000]
-print(high_sales)
+print(high_sales)    #output: [5000 8000]
 
 
 
