@@ -164,3 +164,79 @@ print(df)
 # 3   Neha   21     88     A
 # 0  Rahul   21     85     A
 # 2  Priya   20     78     B
+
+
+#Missing Values
+#Real-world datasets almost always have missing values.
+
+df = pd.DataFrame({
+    "name": ["Rahul", "Aman", "Priya"],
+    "marks": [85, None, 78]
+})
+
+print(df.isnull())   # Check for missing values in the DataFrame
+
+print(df.isnull().sum())   # Count of missing values in each column
+#output:
+# name     0
+# marks    1         #means marks has one missing value
+# dtype: int64
+
+
+#Filling Missing Values
+
+df["marks"] = df["marks"].fillna(0)    #filling missing values with 0
+df["marks"] = df["marks"].fillna(df["marks"].mean())    #filling missing values with mean
+
+
+#Removing Missing Rows
+
+df = df.dropna()     #This removes rows containing missing values.
+#But don't blindly use dropna() in real projects. Sometimes missing values contain useful information and should be filled instead.
+
+
+#Removing Duplicate Rows
+
+print(df.duplicated())    #check duplicates
+df = df.drop_duplicates()    #remove duplicates
+
+
+#GroupBy
+#This is one of the most important Pandas concepts for Data Engineering.
+
+df = pd.DataFrame({
+    "department": ["CSE", "CSE", "ECE", "ECE", "CSE"],
+    "student": ["A", "B", "C", "D", "E"],
+    "marks": [80, 90, 70, 85, 95]
+})
+
+result = df.groupby("department")["marks"].mean()
+print(result)
+#output:
+# department
+# CSE    88.333333
+# ECE    77.500000
+
+
+#Pandas and SQL Similar functions
+# Pandas                  SQL
+
+# groupby()        ↔      GROUP BY
+# mean()           ↔      AVG()
+# sum()            ↔      SUM()
+# count()          ↔      COUNT()
+# min()            ↔      MIN()
+# max()            ↔      MAX()
+
+
+#Reading JSON
+#panda can diretly read json
+df = pd.read_json("students.json")   #read
+df.to_json("output.json")    #write
+
+
+df.to_csv("output.csv", index=False)    #writing csv
+#why index = false, otherwise panda may write
+# 0,Rahul,21,85
+# 1,Aman,22,90
+
