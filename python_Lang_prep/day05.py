@@ -240,3 +240,58 @@ df.to_csv("output.csv", index=False)    #writing csv
 # 0,Rahul,21,85
 # 1,Aman,22,90
 
+
+
+#Pandas + Parquet
+
+df = pd.read_parquet("data.parquet")   #read
+df.to_parquet("data.parquet")   #write
+
+
+#Practice Questions
+#Q1 : create this DataFrame and print first two row, shape, column names, dataType 
+# Name    Age    Marks
+# Rahul   21     85
+# Aman    22     90
+# Priya   20     78
+# Neha    21     88
+
+#solution:
+data = {
+    'Name' : ['Rahul', 'Aman', 'Priya', 'Neha'],
+    'Age' : [21, 22, 20, 21],
+    'Marks' : [85, 90, 78, 88]
+}
+df = pd.DataFrame(data)   #creating dataframe
+print(df.head(2))         #printing first two row
+print(df.shape)         #shape
+print(df.columns)       #column names
+print(df.dtypes)        #datatypes
+
+
+#Q2 : Using the same DataFrame, print students whose marks are greater than 80
+#solution:
+top_students = df[df[marks] > 80]
+
+
+#Q3: create a result column
+#solution:
+df["result"] = ["pass" if marks >= 80 else "fail" for marks in df["marks"]]
+print(df)
+
+
+#q4: Sort students by marks from highest to lowest.
+#Sorting
+df = df.sort_values(by="marks", ascending=False)  # Sort by marks in descending order
+print(df)
+
+
+#q5: Create below dataframe and then find avg marks by department, max marks by department and total marks by department:
+df = pd.DataFrame({
+    "department": ["CSE", "CSE", "ECE", "ECE", "CSE"],
+    "marks": [80, 90, 70, 85, 95]
+})
+
+result_mean = df.groupby("department")["marks"].mean()
+result_max = df.groupby("department")["marks"].max()
+result_total = df.groupby("department")["marks"].sum()
